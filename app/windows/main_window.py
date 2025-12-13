@@ -8,7 +8,9 @@ import csv
 import requests
 
 from app.config import URL, DOPHENEK_MAP
-from app.translation import translator, ToolTip
+from app.translation import translator
+from app.utils import ToolTip
+from app.windows.guild_members import GuildMembersWindow
 
 # Временные импорты для окон, которые будут созданы позже
 # TODO: Перенести эти окна в отдельные модули
@@ -271,8 +273,7 @@ class ProfileFetcherApp(tk.Tk):
 
     def open_guild_members_window(self):
         """Открывает окно для получения ID гильдии"""
-        # TODO: Заменить на реальный импорт
-        messagebox.showinfo("Информация", "Окно получения ID гильдии будет добавлено позже")
+        GuildMembersWindow(self)
 
     def open_stats_window(self):
         """Открывает окно статистики"""

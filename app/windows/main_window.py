@@ -13,6 +13,7 @@ from app.utils import ToolTip
 from app.windows.guild_members import GuildMembersWindow
 from app.windows.kingdom_levels import KingdomLevelsWindow
 from app.windows.kingdom_power import KingdomPowerWindow
+from app.windows.stats_window import StatsWindow
 
 # Временные импорты для окон, которые будут созданы позже
 # TODO: Перенести эти окна в отдельные модули
@@ -277,13 +278,15 @@ class ProfileFetcherApp(tk.Tk):
         """Открывает окно для получения ID гильдии"""
         GuildMembersWindow(self)
 
+  
     def open_stats_window(self):
         """Открывает окно статистики"""
         if not self.results:
             messagebox.showwarning("Ошибка", "Сначала загрузите профили игроков!")
             return
-        # TODO: Заменить на реальный импорт
-        messagebox.showinfo("Информация", "Окно статистики будет добавлено позже")
+        from app.windows.stats_window import StatsWindow
+        StatsWindow(self, self.results, list(self.results.keys()), 
+                   self.show_dophenek, self.show_guild)
 
     def open_kingdom_levels_window(self):
         """Открывает окно уровней королевств"""

@@ -14,6 +14,7 @@ from app.windows.guild_members import GuildMembersWindow
 from app.windows.kingdom_levels import KingdomLevelsWindow
 from app.windows.kingdom_power import KingdomPowerWindow
 from app.windows.stats_window import StatsWindow
+from app.windows.troop_search import TroopSearchWindow
 
 # Временные импорты для окон, которые будут созданы позже
 # TODO: Перенести эти окна в отдельные модули
@@ -311,8 +312,13 @@ class ProfileFetcherApp(tk.Tk):
         if not self.results:
             messagebox.showwarning("Ошибка", "Сначала загрузите профили игроков!")
             return
-        # TODO: Заменить на реальный импорт
-        messagebox.showinfo("Информация", "Окно поиска войск будет добавлено позже")
+        
+        TroopSearchWindow(
+            self, 
+            self.results, 
+            show_guild=self.show_guild, 
+            show_dophenek=self.show_dophenek
+        )
 
     def open_guild_war_window(self):
         """Открывает окно войны гильдий"""

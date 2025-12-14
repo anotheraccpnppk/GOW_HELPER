@@ -10,8 +10,8 @@ class TranslationManager:
                 # Основные элементы интерфейса
                 "app_title": "Запрос профилей по UserId",
                 "enter_userid": "Введите UserId (каждый с новой строки):",
-                "load_userid": "Загрузить UserID",
-                "get_userid": "Получить UserID",
+                "load_list": "Загрузить список",
+                "get_list": "Получить список",
                 "start": "Начать",
                 "show_dophenek": "Показать доп. имя",
                 "hide_dophenek": "Скрыть доп. имя",
@@ -137,8 +137,8 @@ class TranslationManager:
                 # Main interface elements
                 "app_title": "Profile Request by UserId",
                 "enter_userid": "Enter UserId (one per line):",
-                "load_userid": "Load UserID",
-                "get_userid": "Get UserID",
+                "load_list": "Load list",
+                "get_list": "Get list",
                 "start": "Start",
                 "show_dophenek": "Show Alt Name",
                 "hide_dophenek": "Hide Alt Name",

@@ -3,7 +3,13 @@
 # URL API для запросов
 URL = "https://pcmob.parse.gemsofwar.com/call_function"
 
-# Маппинг доп. имен игроков
+# Цвета строк для таблиц во всех окнах
+ROW_COLORS = {
+    'odd': "#f5f5f5",    # Цвет нечётных строк (светло-серый)
+    'even': 'white'      # Цвет чётных строк (белый)
+}
+
+# Маппинг доп. имён игроков
 DOPHENEK_MAP = {
     "W1n1tpfLsE": "Бутчер",
     "1f2Azk4Dcw": "Lina",
@@ -21,4 +27,3 @@ DOPHENEK_MAP = {
     "QVvT3JB9QZ": "Анк",
     "nRkoBA6rVN": "Юра",
 }
-

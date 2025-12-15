@@ -778,7 +778,12 @@ class ProfileFetcherApp(tk.Tk):
         if not self.results:
             messagebox.showwarning("Ошибка", "Сначала загрузите профили игроков!")
             return
-        messagebox.showinfo("Информация", "Окно поиска питомцев будет добавлено позже")
+        
+        # Используйте абсолютный импорт как у вас везде
+        from app.windows.pet_search import PetSearchWindow  # <-- вот так
+        
+        # Открываем основное окно поиска питомцев
+        PetSearchWindow(self, self.results, self.show_guild, self.show_dophenek)
 
     def open_guild_members_window(self):
         """Открывает окно для получения ID гильдии"""

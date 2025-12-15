@@ -1,4 +1,4 @@
-"""Окно поиска питомцев"""
+"""Окно поиска питомцев с переключением на standalone версию"""
 
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
@@ -6,9 +6,18 @@ import csv
 import requests
 from tkinter import font as tkfont
 
-from windows.base import BaseWindow
-from config import DOPHENEK_MAP
-from translation import translator
+# ИСПРАВЬТЕ ЭТИ ИМПОРТЫ:
+from .base import BaseWindow  # <-- ТОЧКА!
+from app.config import DOPHENEK_MAP
+from app.translation import translator
+
+# Импортируем standalone версию
+try:
+    from .pet_search_standalone import PetSearchStandaloneWindow  # <-- ТОЧКА!
+    HAS_STANDALONE = True
+except ImportError:
+    HAS_STANDALONE = False
+    print("Standalone версия не найдена")
 
 class PetSearchWindow(BaseWindow):
     def __init__(self, parent, player_data, show_guild=False, show_dophenek=False):
@@ -67,6 +76,19 @@ class PetSearchWindow(BaseWindow):
         # Верхняя панель с кнопками
         top_frame = tk.Frame(main_frame)
         top_frame.pack(fill="x", pady=5)
+        
+        # Кнопка переключения на standalone версию (САМАЯ ЛЕВАЯ)
+        if HAS_STANDALONE:
+            self.btn_switch_mode = tk.Button(
+                top_frame, 
+                text="📊 База данных питомцев",
+                width=22,
+                command=self.open_standalone_window,
+                bg="#4CAF50",
+                fg="white",
+                font=("Arial", 9, "bold")
+            )
+            self.btn_switch_mode.pack(side="left", padx=5)
         
         self.btn_toggle_guild = tk.Button(
             top_frame, 
@@ -565,3 +587,29 @@ class PetSearchWindow(BaseWindow):
         self.wait_window(top)
         return selected[0] if selected else None
 
+    def open_standalone_window(self):
+        """Открывает standalone версию окна питомцев"""
+        if not HAS_STANDALONE:
+            messagebox.showwarning("Ошибка", "Standalone версия не доступна")
+            return
+        
+        # Закрываем текущее окно
+        self.destroy()
+        
+        # Открываем standalone версию с теми же данными
+        standalone_window = PetSearchStandaloneWindow(
+            self.master,  # parent
+            self.player_data,  # те же данные игроков
+            self.show_guild,   # те же настройки
+            self.show_dophenek
+        )
+        
+        # Передаем уже загруженные данные о питомцах
+        if hasattr(standalone_window, 'name_to_id'):
+            standalone_window.name_to_id = self.name_to_id
+            standalone_window.id_to_name = self.id_to_name
+            standalone_window.pet_details = self.pet_details
+            
+            # Обновляем UI standalone окна
+            if hasattr(standalone_window, 'populate_pets_list'):
+                standalone_window.populate_pets_list()
